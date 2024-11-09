@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Note from '../components/Note'
+import Footer from '../components/Footer'
 
 function Home() {
   return (
@@ -18,6 +19,7 @@ function Home() {
           <Note/>
           <Note/>
         </div>
+        <Footer/>
     </>
   )
 }
