@@ -55,3 +55,30 @@ body{
 .btnBig:hover{
     transform: scale(102%);
 }
+
+.btnNormal{
+    min-width: 130px;
+    padding: 10px;
+    background-color: #F57E57;
+    color: #fff;
+    cursor:pointer;
+    border:0;
+    outline:0;
+    border-radius: 5px;
+}
+
+.gridItems{
+    width:100%;
+    padding: 0px 50px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap:10px
+}
+
+.gridItems .note{
+    background-color: #d4d4d4;
+    padding: 10px;
+    height: 220px;
+    cursor: pointer;
+}
