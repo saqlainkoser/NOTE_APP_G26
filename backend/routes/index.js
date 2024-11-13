@@ -46,5 +46,85 @@ router.post('/signup', async (req, res) => {
 })
 
 
+router.post('/login',async(req,res)=>{
+  let {email,password}=req.body;
+  let user = await User.findOne({email});
+
+  if(user){
+    var bcrypt = require('bcryptjs');
+    bcrypt.compare(password,user.password,async function (err,result){
+      if(result){
+        const jwt = require('jsonwebtoken')
+        var token = jwt.sign({email:user.email,userId : user._id},secret)
+        res.json({
+          success:true,
+          userId:user._id,
+          message:"User Logged In Successfully",
+          token:token
+        })
+      }
+      else{
+        res.json({
+          success:false,
+          message:"Invalid Password"
+        })
+      }
+    })
+  }
+  else{
+    return res.json({
+        success:false,
+        msg : "Email Id not found! "
+    })
+  }
+
+
+
+})
+
+//Notes 
+//getOnenote
+//addNote
+//deleteNote
+//updateNote
+
+//addNote
+
+const noteModel = require('../Models/noteModel.js')
+router.post('/addNote',async(req,res)=>{
+    let {title,description,isImportant,content,uploadedBy} = req.body;
+
+    let note = noteModel.create({
+      title,
+      description,
+      isImportant,
+      content,
+      uploadedBy
+    })
+
+    res.json({
+      success:true,
+      message:"Note Added Successfully"
+    })
+
+})
+
+router.post('/getOneNote',async(req,res)=>{
+  let note = await noteModel.findOne({_id:req.body.userId})
+  if(note){
+    res.json(note);
+  }
+  else{
+    res.json({
+      success:false,
+      msg: "Note not found!"
+    })
+  }
+})
+
+
+
+
+
 
 module.exports = router;
